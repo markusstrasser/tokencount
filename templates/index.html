@@ -5,18 +5,35 @@
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <h1>(Tik)Token Counter</h1>
+    <h1>GPT Token Counter</h1>
+    <div class="subheading">Using <a href="https://github.com/openai/tiktoken">tiktoken</a>, a tokenizer used for GPT-3.5 (turbo) and GPT-4 </div>
+
+    <a class="details" href="https://twitter.com/mkstra"> @mkstra</a>
+<br/>
+<br>
     <form id="token-count-form">
       <!-- <label for="text-input">Text:</label> -->
-      <textarea id="text-input" name="text" rows="4" cols="50" placeholder="... Your text here ..."></textarea>
+      <textarea id="text-input" name="text" rows="4" cols="50" placeholder="  ... Your text here ..."></textarea>
       <br />
       <button type="submit">COUNT TOKENS</button>
     </form>
-    <br />
     <div id="token-count-container">
-      #: <span id="token-count">0</span>
+        <div style="background-color: coral; flex-grow:4 !important">
+            <span id="token-count"> 0 </span>
+            <span class="sidetext" > Tokens</span>
+        </div> 
+        <div style="background-color: lightcoral;">
+            <span id="word-count"> 0 </span>
+            <span class="sidetext" > Words</span>
+
+        </div>
+        <div style="background-color: lightsalmon;">
+            <span id="symbol-count"> 0 </span>
+            <span class="sidetext" > Symbols</span>
+        </div>
+
     </div>
-    <div>
+    <br/>
       <span id="token-strings"></span>
     </div>
     <script src="/static/script.js"></script>

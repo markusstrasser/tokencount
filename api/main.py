@@ -1,41 +1,40 @@
-from fastapi import FastAPI, Request, Form
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-
+from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
+from pathlib import Path
 import tiktoken
-import json
+import os
 
-app = FastAPI()
+app = Flask(__name__, template_folder=Path(__file__).parent / 'templates')
+CORS(app)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.static_folder = 'static'
 
 encoding = tiktoken.get_encoding("cl100k_base")
-templates = Jinja2Templates(directory="templates")
 
-@app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
 
-@app.post("/count_tokens")
-async def count_tokens(text: str = Form(...)):
-    tokens = encoding.encode(text)
-    token_count = len(tokens)
-    byte_strings = [encoding.decode_single_token_bytes(token) for token in tokens]
-    token_strings = [x.decode('utf-8') for x in byte_strings]
-    return {"token_count": token_count, "token_strings": token_strings }
+app = Flask(__name__, template_folder=os.path.abspath('templates'))
+CORS(app)
 
-# Your routes go here
+app.static_folder = 'static'
+app.template_folder = 'templates'
+
+encoding = tiktoken.get_encoding("cl100k_base")
+
+@app.route("/", methods=["GET"])
+def index():
+    return render_template("index.html")
+
+@app.route("/count_tokens", methods=["POST"])
+def count_tokens():
+    text = request.form.get("text")
+    if text is not None:
+        tokens = encoding.encode(text)
+        token_count = len(tokens)
+        byte_strings = [encoding.decode_single_token_bytes(token) for token in tokens]
+        token_strings = [x.decode('utf-8') for x in byte_strings]
+        return jsonify({"token_count": token_count, "token_strings": token_strings})
+    else:
+        return jsonify({"error": "Invalid input"}), 400
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    app.run(host="127.0.0.1", port=8000)

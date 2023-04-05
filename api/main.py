@@ -34,3 +34,8 @@ async def count_tokens(text: str = Form(...)):
     token_strings = [x.decode('utf-8') for x in byte_strings]
     return {"token_count": token_count, "token_strings": token_strings }
 
+# Your routes go here
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)

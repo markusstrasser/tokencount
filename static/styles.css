@@ -4,11 +4,11 @@ h1 {
 
 .subheading {
 
-    font-style: italic;
+    font-style: normal;
     color: grey;
 }
 .details {
-    font-style: italic;
+    font-style: normal;
 
     margin-top: 1rem;
     color: lightslategrey;
@@ -69,7 +69,7 @@ button {
 
 #token-strings {
   line-height: 1.9rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   text-align: left;
 }
 

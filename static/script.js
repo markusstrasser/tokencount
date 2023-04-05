@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
       form.dispatchEvent(new Event("submit"));
     }
   });
-  
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const span = document.createElement("span");
         span.textContent = token;
         span.style.padding = "4px";
-        span.style.marginRight = "4px";
+        // span.style.marginRight = "4px";
         span.style.marginLeft = "4px";
 
         span.style.borderRadius = "1px";
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         } else {
           bgColorIndex = 0;
-          // span.style.marginRight = "7px";
+          span.style.marginLeft = "6px";
 
         }
 

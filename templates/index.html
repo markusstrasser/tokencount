@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Token Count</title>
+    <title>Token Counter</title>
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
-    <h1>Token Count</h1>
+    <h1>(Tik)Token Counter</h1>
     <form id="token-count-form">
-      <label for="text-input">Enter your text:</label>
-      <textarea id="text-input" name="text" rows="4" cols="50"></textarea>
+      <!-- <label for="text-input">Text:</label> -->
+      <textarea id="text-input" name="text" rows="4" cols="50" placeholder="... Your text here ..."></textarea>
       <br />
-      <button type="submit">Get Token Count</button>
+      <button type="submit">Count Tokens</button>
     </form>
     <br />
-    <div>
-      Token count: <span id="token-count">0</span>
+    <div id="token-count-container">
+      #: <span id="token-count">0</span>
     </div>
     <div>
-      Token strings: <span id="token-strings"></span>
+      <span id="token-strings"></span>
     </div>
     <script src="/static/script.js"></script>
   </body>

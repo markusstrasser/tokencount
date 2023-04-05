@@ -30,5 +30,7 @@ async def index(request: Request):
 async def count_tokens(text: str = Form(...)):
     tokens = encoding.encode(text)
     token_count = len(tokens)
-    return {"token_count": token_count}
+    byte_strings = [encoding.decode_single_token_bytes(token) for token in tokens]
+    token_strings = [x.decode('utf-8') for x in byte_strings]
+    return {"token_count": token_count, "token_strings": token_strings }
 

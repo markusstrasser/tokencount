@@ -2,21 +2,9 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from pathlib import Path
 import tiktoken
-import os
 
-app = Flask(__name__, template_folder=Path(__file__).parent / 'templates')
+app = Flask(__name__, template_folder=Path(__file__).parent / 'templates', static_folder=Path(__file__).parent.parent / 'static')
 CORS(app)
-
-app.static_folder = 'static'
-
-encoding = tiktoken.get_encoding("cl100k_base")
-
-
-app = Flask(__name__, template_folder=os.path.abspath('templates'))
-CORS(app)
-
-app.static_folder = 'static'
-app.template_folder = 'templates'
 
 encoding = tiktoken.get_encoding("cl100k_base")
 

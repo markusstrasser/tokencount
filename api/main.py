@@ -7,7 +7,7 @@ import os
 
 template_dir = os.path.abspath("api/templates")
 
-app = Flask(__name__, template_folder=Path(__file__).parent / 'templates', static_folder=Path(__file__).parent.parent / 'static')
+app = Flask(__name__, template_folder='templates', static_folder=os.path.abspath("static"))
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 CORS(app)

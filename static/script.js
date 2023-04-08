@@ -6,12 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const symbolCountDisplay = document.getElementById("symbol-count");
   const getHslString = (index) => `hsl(${60-index*30}, 90%, 80%)`;
 
-
   const tokenStringsDisplay = document.getElementById("token-strings");
 
-  // const backgroundColors = ["#FFE432", "#FFCB25", "#FFAE17", "#FFC17C", "#FFA500", "#FF8C00"];
-
-   // Submit the form when pressing the ENTER key
   textInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -35,38 +31,39 @@ document.addEventListener("DOMContentLoaded", () => {
       tokenCountDisplay.textContent = data.token_count;
       wordCountDisplay.textContent = textInput.value.split(" ").length;
       symbolCountDisplay.textContent = textInput.value.length
+
       // Clear the previous tokens
       tokenStringsDisplay.innerHTML = "";
 
-      // Initialize the background color index
+      // Initialize the background color index and parent div
       let bgColorIndex = 0;
+      let parentDiv = null;
 
       data.token_strings.forEach((token, index) => {
         const span = document.createElement("span");
         span.textContent = token;
         span.style.padding = "4px";
-        // span.style.marginRight = "4px";
         span.style.marginLeft = "4px";
-
         span.style.borderRadius = "1px";
 
-        // Update the background color index if the token is part of the same word as the previous token
+        // Check if the token is part of the same word as the previous token
         if (index > 0 && !token.startsWith(" ") && !data.token_strings[index - 1].endsWith(" ")) {
-          bgColorIndex = bgColorIndex + 1
+          bgColorIndex = bgColorIndex + 1;
           span.style.marginRight = "1px";
-          span.style.marginLeft = "1px";
-
-          
-
         } else {
-          bgColorIndex = 0
-          span.style.marginLeft = "16px";
-
+          // Create a new parent div for the new group
+          bgColorIndex = 0;
+          parentDiv = document.createElement("div");
+          parentDiv.style.display = "inline-block";
+          parentDiv.style.padding= "8px";
+          parentDiv.style.border = "1px solid black";
+          parentDiv.style.borderRadius = "4px";
+          parentDiv.style.marginRight = "16px";
+          tokenStringsDisplay.appendChild(parentDiv);
         }
 
-        span.style.backgroundColor = getHslString(bgColorIndex) ;
-       
-        tokenStringsDisplay.appendChild(span);
+        span.style.backgroundColor = getHslString(bgColorIndex);
+        parentDiv.appendChild(span);
       });
     } else {
       console.error("Failed to fetch token count and token strings");
